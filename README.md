@@ -1,4 +1,4 @@
-# WebCars API - Backend
+# HotWheelsAPI - Backend
 
 A **HotWheels API** é uma aplicação backend construída com **Node.js**, **Express** e **MongoDB**, que fornece uma interface para gerenciamento de HotWheels. Com ela, é possível realizar operações CRUD completas (Create, Read, Update, Delete).
 
@@ -21,7 +21,7 @@ A API permite:
 
 * Criar um ou vários HotWheels
 * Listar todos os HotWheels
-* Buscar um carro por ID
+* Buscar um HotWheels por ID
 * Atualizar dados de um HotWheels
 * Deletar um HotWheels por ID
 * Deletar todos os HotWheels
@@ -34,7 +34,7 @@ A API permite:
 
 ### **\[POST] /api/hot**
 
-Cria um novo carro.
+Cria um novo HotWheels.
 
 **Exemplo de corpo (JSON):**
 

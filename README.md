@@ -180,7 +180,7 @@ A API estará disponível em:
 Exemplo de requisição **POST** via `curl`:
 
 ```bash
-curl -X POST http://localhost:3000/api/cars \
+curl -X POST http://localhost:3000/api/hot \
 -H "Content-Type: application/json" \
 -d '{
   "nome": "BMW X6",

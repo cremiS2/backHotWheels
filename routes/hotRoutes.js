@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const carController = require('../controllers/hotController');
+const hotController = require('../controllers/hotController');
 const Hot = require('../models/Hot');
 
 /**
  * @swagger
  * components:
  *   schemas:
- *     Car:
+ *     Hot:
  *       type: object
  *       required:
  *         - nome
@@ -17,29 +17,27 @@ const Hot = require('../models/Hot');
  *       properties:
  *         id:
  *           type: string
- *           description: ID do carro
+ *           description: ID do HotWheels
  *         nome:
  *           type: string
- *           description: Nome do carro
+ *           description: Nome do HotWheels
  *         modelo:
  *           type: string
- *           description: Modelo do carro
+ *           description: Modelo do HotWheels
  *         ano:
  *           type: integer
- *           description: Ano de fabricação do carro
+ *           description: Ano de fabricação do HotWheels
  *         imagem:
  *           type: string
- *           description: URL da imagem do carro
+ *           description: URL da imagem do HotWheels
  */
-
-/* ==== POST ==== */
 
 /**
  * @swagger
  * /api/hot:
  *   post:
- *     summary: Cria um novo carro
- *     tags: [Cars]
+ *     summary: Cria um novo HotWheels
+ *     tags: [Hot]
  *     requestBody:
  *       required: true
  *       content:
@@ -54,7 +52,7 @@ const Hot = require('../models/Hot');
  *             schema:
  *               $ref: '#/components/schemas/Hot'
  */
-router.post('/', hotController.createCar);
+router.post('/', hotController.createHot);
 
 /**
  * @swagger
@@ -80,16 +78,14 @@ router.post('/', hotController.createCar);
  *               items:
  *                 $ref: '#/components/schemas/Hot'
  */
-router.post('/multiple', hotController.createMultipleCars);
-
-/* ==== GET ==== */
+router.post('/multiple', hotController.createMultipleHots);
 
 /**
  * @swagger
  * /api/hot:
  *   get:
  *     summary: Retorna todos os HotWheels
- *     tags: [Cars]
+ *     tags: [Hot]
  *     responses:
  *       200:
  *         description: Lista de HotWheels
@@ -100,7 +96,7 @@ router.post('/multiple', hotController.createMultipleCars);
  *               items:
  *                 $ref: '#/components/schemas/Hot'
  */
-router.get('/', hotController.getCars);
+router.get('/', hotController.getHots);
 
 /**
  * @swagger
@@ -121,11 +117,11 @@ router.get('/', hotController.getCars);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/hot'
+ *               $ref: '#/components/schemas/Hot'
  *       404:
  *         description: HotWheels não encontrado
  */
-router.get('/:id', hotController.getCarById);
+router.get('/:id', hotController.getHotById);
 
 /**
  * @swagger
@@ -149,14 +145,12 @@ router.get('/welcome', (req, res) => {
   res.status(200).json({ message: "Bem-vindo à API de HotWheels!" });
 });
 
-/* ==== PUT ==== */
-
 /**
  * @swagger
  * /api/hot/{id}:
  *   put:
  *     summary: Atualiza um HotWheels pelo ID
- *     tags: [HotHotWheels]
+ *     tags: [Hot]
  *     parameters:
  *       - in: path
  *         name: id
@@ -178,9 +172,7 @@ router.get('/welcome', (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Hot'
  */
-router.put('/:id', hotController.updateCar);
-
-/* ==== DELETE ==== */
+router.put('/:id', hotController.updateHot);
 
 /**
  * @swagger
@@ -199,18 +191,18 @@ router.put('/:id', hotController.updateCar);
  *       200:
  *         description: HotWheels deletado com sucesso
  */
-router.delete('/:id', hotController.deleteCar);
+router.delete('/:id', hotController.deleteHot);
 
 /**
  * @swagger
  * /api/hot/delete-all:
  *   delete:
- *     summary: Deleta todos os carros
+ *     summary: Deleta todos os HotWheels
  *     tags: [Hot]
  *     responses:
  *       200:
  *         description: Todos os HotWheels deletados com sucesso
  */
-router.delete('/delete-all', hotController.deleteAllCars);
+router.delete('/delete-all', hotController.deleteAllHots);
 
 module.exports = router;

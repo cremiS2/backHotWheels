@@ -1,4 +1,4 @@
-const Car = require('../models/Hot');
+const Hot = require('../models/Hot');
 
 const handleError = (res, err, status = 500, message = "Erro no processo") => {
   console.error("Detalhes do erro:", err);
@@ -9,120 +9,120 @@ const handleError = (res, err, status = 500, message = "Erro no processo") => {
   });
 };
 
-const findCarById = async (id) => {
+const findHotById = async (id) => {
   if (!id || id.length !== 24) {
     throw new Error('ID inválido');
   }
 
-  const car = await Car.findById(id);
-  if (!car) {
-    throw new Error('Carro não encontrado');
+  const hot = await Hot.findById(id);
+  if (!hot) {
+    throw new Error('HotWheels não encontrado');
   }
 
-  return car;
+  return hot;
 };
 
-exports.createCar = async (req, res) => {
+exports.createHot = async (req, res) => {
   try {
-    const car = new Car(req.body);
-    await car.save();
+    const hot = new Hot(req.body);
+    await hot.save();
     return res.status(201).json({
       success: true,
       message: 'HotWheels criado com sucesso!',
-      data: car
+      data: hot
     });
   } catch (err) {
     return handleError(res, err);
   }
 };
 
-exports.createMultipleCars = async (req, res) => {
+exports.createMultipleHots = async (req, res) => {
   try {
-    const cars = req.body;
+    const hots = req.body;
 
-    if (!Array.isArray(cars) || cars.length === 0) {
+    if (!Array.isArray(hots) || hots.length === 0) {
       return res.status(400).json({
         success: false,
         message: "Deve enviar um array de HotWheels para criação"
       });
     }
 
-    const createdCars = await Car.insertMany(cars);
+    const createdHots = await Hot.insertMany(hots);
 
     return res.status(201).json({
       success: true,
-      message: `${createdCars.length} HotWheels criados com sucesso!`,
-      data: createdCars
+      message: `${createdHots.length} HotWheels criados com sucesso!`,
+      data: createdHots
     });
   } catch (err) {
     return handleError(res, err);
   }
 };
 
-exports.getCars = async (req, res) => {
+exports.getHots = async (req, res) => {
   try {
-    const cars = await Car.find();
+    const hots = await Hot.find();
 
     return res.status(200).json({
       success: true,
-      message: cars.length
+      message: hots.length
         ? 'HotWheels encontrados com sucesso!'
-        : 'Nenhum carro encontrado',
-      data: cars
+        : 'Nenhum HotWheels encontrado',
+      data: hots
     });
   } catch (err) {
     return handleError(res, err, 500, "Erro ao listar HotWheels");
   }
 };
 
-exports.getCarById = async (req, res) => {
+exports.getHotById = async (req, res) => {
   try {
-    const car = await findCarById(req.params.id);
+    const hot = await findHotById(req.params.id);
     return res.status(200).json({
       success: true,
       message: 'HotWheels encontrado com sucesso!',
-      data: car
+      data: hot
     });
   } catch (err) {
-    return handleError(res, err, 404, "Erro ao buscar carro por ID");
+    return handleError(res, err, 404, "Erro ao buscar HotWheels por ID");
   }
 };
 
-exports.updateCar = async (req, res) => {
+exports.updateHot = async (req, res) => {
   try {
-    const car = await findCarById(req.params.id);
-    Object.assign(car, req.body);
-    await car.save();
+    const hot = await findHotById(req.params.id);
+    Object.assign(hot, req.body);
+    await hot.save();
 
     return res.status(200).json({
       success: true,
       message: 'HotWheels atualizado com sucesso!',
-      data: car
+      data: hot
     });
   } catch (err) {
     return handleError(res, err);
   }
 };
 
-exports.deleteCar = async (req, res) => {
+exports.deleteHot = async (req, res) => {
   try {
-    const car = await findCarById(req.params.id);
-    await car.deleteOne();
+    const hot = await findHotById(req.params.id);
+    await hot.deleteOne();
 
     return res.status(200).json({
       success: true,
       message: 'HotWheels deletado com sucesso!'
     });
   } catch (err) {
-    return handleError(res, err, 500, "Erro ao deletar carro");
+    return handleError(res, err, 500, "Erro ao deletar HotWheels");
   }
 };
 
-exports.deleteAllCars = async (req, res) => {
+exports.deleteAllHots = async (req, res) => {
   try {
     console.warn("Operação perigosa: limpando todos os HotWheels do banco de dados.");
 
-    const result = await Car.deleteMany({});
+    const result = await Hot.deleteMany({});
     const count = result.deletedCount || 0;
 
     return res.status(200).json({

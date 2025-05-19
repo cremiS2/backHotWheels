@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express'); 
 const swaggerSpec = require('./docs/swagger'); 
-const carRoutes = require('./routes/carRoutes');
+const hotRoutes = require('./routes/hotRoutes');
 
 const app = express();
 
